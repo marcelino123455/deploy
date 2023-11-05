@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import com.example.demo.domain.services.comentarioService;
 import com.example.demo.domain.services.comicService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/user")
 public class usuarioController {
     @Autowired
@@ -26,6 +29,7 @@ public class usuarioController {
     @Autowired
     private comentarioService comentarioService;
 
+    @Secured({"ADMIN", "USER"})
     @PostMapping("/registrar_comentario")
     public ResponseEntity<String> HacerComentario(@RequestBody NewComentarioDTO coment){
         Comentarios Ncomentario = comentarioService.GenerarComentario(coment.getContent());
@@ -33,6 +37,7 @@ public class usuarioController {
         return new ResponseEntity<>("Nuevo comentario !", HttpStatus.CREATED);
     }
 
+    @Secured({"ADMIN", "USER"})
     @PostMapping("/postear_comics")
     public ResponseEntity<List<Comic>> PostearComic(@RequestBody NewPostComicDTO NewComic){
         return new ResponseEntity<>(comicService.GuardarPostComic(NewComic.getComic(), NewComic.getUsuario()), HttpStatus.CREATED);
