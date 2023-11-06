@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin
 public class AuthController {
     private final AuthenticationService authenticationService;
 
@@ -16,12 +15,12 @@ public class AuthController {
     public AuthController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
-    @CrossOrigin
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/signup")
     public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody UserRequestDto request) {
         return ResponseEntity.ok(authenticationService.signup(request));
     }
-    @CrossOrigin
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/signin")
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SigninRequest request) {
         return ResponseEntity.ok(authenticationService.signin(request));
