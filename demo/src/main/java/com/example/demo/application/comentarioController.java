@@ -1,6 +1,4 @@
 package com.example.demo.application;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.services.comicService;
-
 
 @RestController
 @CrossOrigin
@@ -33,7 +30,7 @@ public class comentarioController {
     @PostMapping("/dislike_comentario/{comentarioId}")
     public ResponseEntity<String> DarDisLikeComentario(@PathVariable Long comentarioId){
         comicService.ActualizarDisLikesComentario(comentarioId);
-        return new ResponseEntity<>( "dislike!", HttpStatus.OK);
+        return new ResponseEntity<>( "dislike", HttpStatus.OK);
     }
 
     @Secured({"ADMIN", "USER"})
