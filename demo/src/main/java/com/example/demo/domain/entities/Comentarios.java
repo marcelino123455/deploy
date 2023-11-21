@@ -22,6 +22,7 @@ public class Comentarios {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
     private String contenido;
     private Integer likes;
     private Integer dislikes; 

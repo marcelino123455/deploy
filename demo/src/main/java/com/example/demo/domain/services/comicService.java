@@ -1,13 +1,13 @@
 package com.example.demo.domain.services;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.DTOs.ComentarioDTO;
+import com.example.demo.domain.DTOs.ComicDto;
 import com.example.demo.domain.entities.Autor;
 import com.example.demo.domain.entities.Comentarios;
 import com.example.demo.domain.entities.Comic;
@@ -96,5 +96,21 @@ public class comicService {
     public void ActializarDisLikesComic(Long comicId){
         Comic comic= comicRepository.findById(comicId).get();
         comic.setDislikes(comic.getDislikes() + 1);
+    }
+
+    //get comi
+
+    public List<Comic> getComis(){
+        return comicRepository.findAll();
+    }
+
+    public Optional<Comic> getComicicito(Long id){
+        return comicRepository.findById(id);
+    }
+
+    //eSTE SI: 
+    public List<ComicDto> getComentariosPorComic() {
+        List<Comic> comics = comicRepository.findAll();
+        return comics.stream().map(ComicDto::new).collect(Collectors.toList());
     }
 }
